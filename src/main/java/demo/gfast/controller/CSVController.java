@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
@@ -24,10 +25,11 @@ public class CSVController {
     }
 
     @RequestMapping(value = "/uploadFile", method = RequestMethod.POST)
-    public ResponseEntity<Map<String, String>> uploadFileHandler(@RequestParam("name") String name, @RequestParam("file") MultipartFile file) {
+    public ResponseEntity<Map<String, String>> uploadFileHandler(@RequestParam("name") String name, @RequestParam("file") MultipartFile file, HttpServletRequest request) {
 
         log("Inside CSVController.uploadFileHandler");
         log("name = [" + name + "]");
+        log(request.getSession().getServletContext().getRealPath("/"));
         Map<String, String> res = new HashMap<String, String>();
         File desFile = new File(uploadDirectory + file.getOriginalFilename());
 
