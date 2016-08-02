@@ -12,6 +12,7 @@
           <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.7.0" />
           <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.7.0" />
           <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-core:2.7.0" />
+          <element id="library" level="application" name="Spring MVC-4.3.1.RELEASE" />
         </element>
       </element>
       <element id="directory" name="META-INF">
