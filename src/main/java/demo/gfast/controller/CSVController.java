@@ -17,7 +17,7 @@ import java.util.Map;
 @RequestMapping(value = "/csv")
 public class CSVController {
 
-    private final String uploadDirectory = "C:\\Gfast\\";
+    private final String uploadDirectory = "C:\\Gfast\\UploadCSV\\";
 
     private void log(String message) {
         System.out.println(message);

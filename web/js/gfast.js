@@ -18,9 +18,9 @@
     }]);
 
     /* Service */
-    app.service('formService', [$http, function($http){
+    app.service('formService', ['$http', function($http){
         this.uploadFormDataToUrl = function(fd, url){
-            $http.post(url, fd, {
+            return $http.post(url, fd, {
                 transformRequest : angular.identity,
                 headers : {'Content-type' : undefined}
             });
@@ -28,10 +28,11 @@
     }]);
 
     /* Controller */
-    app.controller('csvController',['$scope', 'fileService', function($scope, fileService){
+    app.controller('csvController',['$scope', 'formService', function($scope, formService){
         $scope.submitCSVData = function(){
             $scope.uploadSuccess = undefined;
             var file = $scope.csvFile;
+            var name = $scope.name;
             console.log('File is ');
             console.dir(file);
             var url = "/rest/csv/uploadFile";

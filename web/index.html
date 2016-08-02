@@ -7,7 +7,7 @@
 </head>
 <body>
 
-<div ng-controller="uploadCSVController">
+<div ng-controller="csvController">
     <div class="container centered">
         <div style="width: 60%">
             <div class="panel panel-default">
@@ -48,22 +48,24 @@
                                 <button class="btn btn-success" type="submit" ><span class="glyphicon glyphicon-upload"></span> Submit </button>
                             </div>
                         </form>
-
-                        <div ng-if="uploadSuccess">
-                            <div class="alert alert-success">
-                               File Uploaded Successfully !!
-                            </div>
-                        </div>
-
-                        <div ng-if="!uploadSuccess">
-                            <div class="alert alert-danger">
-                                File Uploaded Failed !!
-                            </div>
-                        </div>
-
                     </div>
                 </div>
             </div>
+
+            <div ng-if="uploadSuccess == true">
+                <div class="alert alert-success fade in">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    File Uploaded Successfully!!
+                </div>
+            </div>
+
+            <div ng-if="uploadSuccess == false">
+                <div class="alert alert-danger fade in">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    File Not Uploaded
+                </div>
+            </div>
+
         </div>
     </div>
 </div>
