@@ -1,0 +1,15 @@
+.centered {
+    position: absolute;
+    top: 20%;
+    left: 20%;
+}
+
+label{
+    font-weight: 600;
+}
+
+.form-horizontal .control-label{
+    text-align:left;
+    top:50%;
+    position: relative;
+}

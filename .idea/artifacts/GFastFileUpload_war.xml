@@ -1,0 +1,11 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="GFastFileUpload:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <root id="archive" name="spring-fileupload-1.0-SNAPSHOT.war">
+      <element id="artifact" artifact-name="GFastFileUpload:war exploded" />
+      <element id="directory" name="META-INF">
+        <element id="file-copy" path="$PROJECT_DIR$/META-INF/MANIFEST.MF" />
+      </element>
+    </root>
+  </artifact>
+</component>
