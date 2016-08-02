@@ -14,7 +14,7 @@
                 <div class="panel-heading">Upload CSV</div>
                 <div class="panel-body">
                     <div class="col-sm-12">
-                        <form class="form-horizontal" role="form" method="post" ng-submit="submitCSVData()">
+                        <form class="form-horizontal" role="form" method="post">
 
                             <div class="form-group">
                                 <label class="control-label col-sm-2" for="name">Name</label>
@@ -44,12 +44,22 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="form-group text-center">
-                                <button class="btn btn-success" type="submit" ><span class="glyphicon glyphicon-upload"></span> Submit </button>
+                            <div class="form-group text-center" style="padding-top: 20px;">
+                                <div class="col-sm-4"></div>
+                                <div class="col-sm-4">
+                                    <button class="btn btn-success btn-block" type="button" ng-click="submitCSVData()"
+                                            id="uploadButton"><span class="glyphicon glyphicon-upload"></span> Submit
+                                    </button>
+                                </div>
+                                <div class="col-sm-4"></div>
                             </div>
                         </form>
                     </div>
                 </div>
+            </div>
+
+            <div ng-if="uploadingInProgress" class="text-center">
+                <img src="images/loading.gif" title="Loading in progress.." alt="Loading in progress..">
             </div>
 
             <div ng-if="uploadSuccess == true">
@@ -62,7 +72,7 @@
             <div ng-if="uploadSuccess == false">
                 <div class="alert alert-danger fade in">
                     <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                    File Not Uploaded
+                    {{failureReason}}
                 </div>
             </div>
 

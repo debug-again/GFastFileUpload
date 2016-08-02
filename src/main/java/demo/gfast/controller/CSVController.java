@@ -11,6 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -18,10 +19,16 @@ import java.util.Map;
 @RequestMapping(value = "/csv")
 public class CSVController {
 
-    private final String uploadDirectory = "C:\\Gfast\\UploadCSV\\";
+    private final String uploadDirectoryLocation = "C:\\Gfast\\UploadCSV\\";
 
     private void log(String message) {
         System.out.println(message);
+    }
+
+    private ResponseEntity<Map<String, String>> prepareResponse(String desc, HttpStatus status){
+        Map<String, String> res = new HashMap<String, String>();
+        res.put("description", desc);
+        return new ResponseEntity<Map<String, String>>(res, status);
     }
 
     @RequestMapping(value = "/uploadFile", method = RequestMethod.POST)
@@ -30,20 +37,28 @@ public class CSVController {
         log("Inside CSVController.uploadFileHandler");
         log("name = [" + name + "]");
         log(request.getSession().getServletContext().getRealPath("/"));
-        Map<String, String> res = new HashMap<String, String>();
-        File desFile = new File(uploadDirectory + file.getOriginalFilename());
 
-        try {
-            file.transferTo(desFile);
-            res.put("status", "success");
-        } catch (IOException e) {
-            log("Unable to transger object at " + desFile.getAbsolutePath());
-            log("Exception received : " + e.getMessage());
-            e.printStackTrace();
-            res.put("status", "failure");
-            return new ResponseEntity<Map<String, String>>(res, HttpStatus.INTERNAL_SERVER_ERROR);
+        File uploadDir = new File(uploadDirectoryLocation);
+        File desFile = new File(uploadDirectoryLocation + file.getOriginalFilename());
+
+        if(file.getSize() == 0){
+            return prepareResponse("File Size should be more than 0KB !!", HttpStatus.LENGTH_REQUIRED);
         }
 
-        return new ResponseEntity<Map<String, String>>(res, HttpStatus.CREATED);
+        try {
+            if(!uploadDir.exists()){
+                uploadDir.mkdir();
+            }else if(desFile.exists()){
+                desFile = new File(uploadDirectoryLocation + file.getOriginalFilename() + new Date().getTime());
+            }
+            file.transferTo(desFile);
+        } catch (IOException e) {
+            log("Unable to transfer object at " + desFile.getAbsolutePath());
+            log("Exception received : " + e.getMessage());
+            e.printStackTrace();
+            return prepareResponse("Unable to transfer file to server !!", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        return prepareResponse("Unable to transfer file to server !!",HttpStatus.CREATED);
     }
 }
