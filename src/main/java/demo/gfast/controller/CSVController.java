@@ -38,8 +38,9 @@ public class CSVController {
         log("name = [" + name + "]");
         log(request.getSession().getServletContext().getRealPath("/"));
 
+        String fileName = file.getOriginalFilename();
         File uploadDir = new File(uploadDirectoryLocation);
-        File desFile = new File(uploadDirectoryLocation + file.getOriginalFilename());
+        File desFile = new File(uploadDirectoryLocation + fileName);
 
         if(file.getSize() == 0){
             return prepareResponse("File Size should be more than 0KB !!", HttpStatus.LENGTH_REQUIRED);
@@ -49,7 +50,7 @@ public class CSVController {
             if(!uploadDir.exists()){
                 uploadDir.mkdir();
             }else if(desFile.exists()){
-                desFile = new File(uploadDirectoryLocation + file.getOriginalFilename() + new Date().getTime());
+                desFile = new File(uploadDirectoryLocation + fileName.substring(0, fileName.lastIndexOf('.')) + " - " + new Date().getTime() + fileName.substring(fileName.lastIndexOf('.')));
             }
             file.transferTo(desFile);
         } catch (IOException e) {

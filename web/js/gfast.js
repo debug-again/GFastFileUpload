@@ -10,9 +10,9 @@
                 var model = $parse(attrs.fileModel);
                 element.bind('change', function(){
 
-                    if(element[0].files[0].size == 0){
+                    if(element[0].files[0].size == 0 || element[0].files[0].size > 100000000){
                         scope.uploadSuccess = false;
-                        scope.failureReason = "File Cannot be uploaded. Size should be more than 0KB";
+                        scope.failureReason = "File Cannot be uploaded. Size should be more than 0 Byte and less than 100000000 Bytes";
                         $('#uploadButton').prop("disabled", true);
                     }else{
                         $('#uploadButton').prop("disabled", false);
